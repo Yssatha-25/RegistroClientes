@@ -106,8 +106,33 @@
             localStorage.setItem("pacientes", JSON.stringify(pacientes))
 
             FecharSecaoCadastro()
+            AtualizarTabela()
         }
 
+
+        const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
+        
+        window.onload = function () {
+            AtualizarTabela()
+        }
+        
+        function AtualizarTabela() {
+            const linha = document.createElement("tr")
+            TabelaPacientesCadastrados.appendChild(linha)
+
+            for (let i = 0; i < pacientes.length; i++) {
+                linha.innerHTML = `
+                <th>${pacientes[i].nome.trim()}</th>
+                <th>${pacientes[i].cpf.trim()}</th>
+                <th>${pacientes[i].data_nascimento.trim()}</th>
+                <th>${pacientes[i].telefone.trim()}</th>
+                <th>${pacientes[i].profissao.trim()}</th>
+                <th>${pacientes[i].bairro.trim()}</th>
+                <th>${pacientes[i].valor_atendimento.trim()}</th>
+                <th>${pacientes[i].forma_pagamento.trim()}</th>
+            `
+            }
+        }
 
     </script>
 
