@@ -51,7 +51,7 @@
                 placeholder="Digite a forma de pagamento"></p>
         <br>
 
-        <button>Salvar</button>
+        <button onclick="CadastrarPaciente()">Salvar</button>
         <button onclick="FecharSecaoCadastro()">Cancelar</button>
     </div>
 
@@ -64,6 +64,15 @@
             divPacientesCadastrados.classList.add("hidden")
         }
         function FecharSecaoCadastro() {
+            nomePaciente.value = ""
+            cpfPaciente.value = ""
+            dataNascPaciente.value = ""
+            telefonePaciente.value = ""
+            profissaoPaciente.value = ""
+            bairroPaciente.value = ""
+            valorAtendPaciente.value = ""
+            formaPagamentoPaciente.value = ""
+
             divCadastroPacientes.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
@@ -76,6 +85,29 @@
         const bairroPaciente = document.getElementById("bairroPacienteInput")
         const valorAtendPaciente = document.getElementById("valorAtendPacienteInput")
         const formaPagamentoPaciente = document.getElementById("formaPagamentoPacienteInput")
+
+        let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
+
+        function CadastrarPaciente() {
+            let paciente = {
+                nome: nomePaciente.value.trim(),
+                cpf: cpfPaciente.value.trim(),
+                data_nascimento: dataNascPaciente.value.trim(),
+                telefone: telefonePaciente.value.trim(),
+                profissao: profissaoPaciente.value.trim(),
+                bairro: bairroPaciente.value.trim(),
+                valor_atendimento: valorAtendPaciente.value.trim(),
+                forma_pagamento: formaPagamentoPaciente.value.trim()
+            }
+
+            pacientes.push(paciente)
+            console.log(pacientes)
+
+            localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+            FecharSecaoCadastro()
+        }
+
 
     </script>
 
