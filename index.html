@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de pacientes</title>
     <style>
-        .hidden{
+        .hidden {
             display: none;
         }
     </style>
@@ -39,14 +39,16 @@
     <div id="SecaoCadastroPacientes" class="hidden">
         <h2>Cadastro - preencha as informações do novo paciente</h2>
 
-        <p>Nome:   <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
-        <p>CPF:   <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
-        <p>Data de nascimento:   <input type="date" id="dataNascPacienteInput"></p>
-        <p>Telefone:   <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
-        <p>Profissão:   <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
-        <p>Bairro:   <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
-        <p>Valor do atendimento:   <input type="number" id="valorAtendPacienteInput" placeholder="Digite o valor de atendimento"></p>
-        <p>Forma de pagamento:   <input type="text" id="formaPagamentoPacienteInput" placeholder="Digite a forma de pagamento"></p>
+        <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
+        <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
+        <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
+        <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
+        <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
+        <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
+        <p>Valor do atendimento: <input type="number" id="valorAtendPacienteInput"
+                placeholder="Digite o valor de atendimento"></p>
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoPacienteInput"
+                placeholder="Digite a forma de pagamento"></p>
         <br>
 
         <button>Salvar</button>
@@ -56,18 +58,28 @@
     <script>
         const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
         const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
-        
-        function AbrirSecaoCadastro(){
+
+        function AbrirSecaoCadastro() {
             divCadastroPacientes.classList.remove("hidden")
             divPacientesCadastrados.classList.add("hidden")
         }
-        function FecharSecaoCadastro(){
+        function FecharSecaoCadastro() {
             divCadastroPacientes.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
+
+        const nomePaciente = document.getElementById("nomePacienteInput")
+        const cpfPaciente = document.getElementById("cpfPacienteInput")
+        const dataNascPaciente = document.getElementById("dataNascPacienteInput")
+        const telefonePaciente = document.getElementById("telefonePacienteInput")
+        const profissaoPaciente = document.getElementById("profissaoPacienteInput")
+        const bairroPaciente = document.getElementById("bairroPacienteInput")
+        const valorAtendPaciente = document.getElementById("valorAtendPacienteInput")
+        const formaPagamentoPaciente = document.getElementById("formaPagamentoPacienteInput")
+
     </script>
-    
-    
+
+
 </body>
 
 </html>
