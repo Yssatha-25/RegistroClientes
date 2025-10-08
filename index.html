@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de pacientes</title>
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -13,7 +18,7 @@
     <div id="PacientesCadastrados">
         <h2>Clientes cadastrados</h2>
 
-        <button>Cadastrar um novo paciente</button>
+        <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
         <br><br>
 
         <table border="1">
@@ -31,7 +36,7 @@
         </table>
     </div>
 
-    <div id="SecaoCadastroPacientes">
+    <div id="SecaoCadastroPacientes" class="hidden">
         <h2>Cadastro - preencha as informações do novo paciente</h2>
 
         <p>Nome:   <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
@@ -45,8 +50,23 @@
         <br>
 
         <button>Salvar</button>
-        <button>Cancelar</button>
+        <button onclick="FecharSecaoCadastro()">Cancelar</button>
     </div>
+
+    <script>
+        const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
+        const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
+        
+        function AbrirSecaoCadastro(){
+            divCadastroPacientes.classList.remove("hidden")
+            divPacientesCadastrados.classList.add("hidden")
+        }
+        function FecharSecaoCadastro(){
+            divCadastroPacientes.classList.add("hidden")
+            divPacientesCadastrados.classList.remove("hidden")
+        }
+    </script>
+    
     
 </body>
 
