@@ -16,7 +16,7 @@
     <h1>Registro de pacientes</h1>
 
     <div id="PacientesCadastrados">
-        <h2>Clientes cadastrados</h2>
+        <h2>Pacientes cadastrados</h2>
 
         <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
         <br><br>
@@ -112,11 +112,11 @@
 
 
         const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
-        
+
         window.onload = function () {
             AtualizarTabela()
         }
-        
+
         function AtualizarTabela() {
             TabelaPacientesCadastrados.innerHTML = ""
 
@@ -131,11 +131,22 @@
                 <th>${pacientes[i].bairro.trim()}</th>
                 <th>${pacientes[i].valor_atendimento.trim()}</th>
                 <th>${pacientes[i].forma_pagamento.trim()}</th>
-                <th><button>Exluir</button></th>
+                <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
                 <th><button>Editar</button></th>
                 <th><button>Histórico de atendimento</button></th>
             `
-            TabelaPacientesCadastrados.appendChild(linha)
+                TabelaPacientesCadastrados.appendChild(linha)
+            }
+        }
+
+        function ExcluirPaciente(indice) {
+            const confirmar = confirm("Deseja mesmo excluir esse paciente?")
+
+            if(confirmar){
+                pacientes.splice(indice, 1) // remove do array
+            localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
+
+            AtualizarTabela()
             }
         }
 
