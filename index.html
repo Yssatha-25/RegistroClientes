@@ -56,9 +56,15 @@
         <button onclick="FecharSecaoCadastro()">Cancelar</button>
     </div>
 
+    <div id="HistoricoAtendimentos">
+        <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
+    </div>
+
     <script>
         const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
         const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
+        const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
+        const divHistoricoAtend = document.getElementById("HistoricoAtendimentos")
 
         function AbrirSecaoCadastro() {
             divCadastroPacientes.classList.remove("hidden")
@@ -75,6 +81,14 @@
             formaPagamentoPaciente.value = ""
 
             divCadastroPacientes.classList.add("hidden")
+            divPacientesCadastrados.classList.remove("hidden")
+        }
+        function AbrirHistoricoAtend(){
+            divHistoricoAtend.classList.remove("hidden")
+            divPacientesCadastrados.classList.add("hidden")
+        }
+        function FecharHistoricoAtend(){
+            divHistoricoAtend.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
 
@@ -133,7 +147,7 @@
                 <th>${pacientes[i].forma_pagamento.trim()}</th>
                 <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
                 <th><button>Editar</button></th>
-                <th><button>Histórico de atendimento</button></th>
+                <th><button onclick="AbrirHistoricoAtend()">Histórico de atendimento</button></th>
             `
                 TabelaPacientesCadastrados.appendChild(linha)
             }
@@ -142,11 +156,11 @@
         function ExcluirPaciente(indice) {
             const confirmar = confirm("Deseja mesmo excluir esse paciente?")
 
-            if(confirmar){
+            if (confirmar) {
                 pacientes.splice(indice, 1) // remove do array
-            localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
+                localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
 
-            AtualizarTabela()
+                AtualizarTabela()
             }
         }
 
