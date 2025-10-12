@@ -63,6 +63,17 @@
         <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
         <br><br>
         <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
+
+        <table border="1">
+            <tr>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Categoria</th>
+                <th>Valor</th>
+                <th>Forma de pagamento</th>
+            </tr>
+            <tbody id="TabelaHistoricoAtendimentos"></tbody>
+        </table>
     </div>
 
     <div id="SecaoRegistroAtendimentos" class="hidden">
@@ -140,6 +151,7 @@
                 bairro: bairroPaciente.value.trim(),
                 valor_atendimento: valorAtendPaciente.value.trim(),
                 forma_pagamento: formaPagamentoPaciente.value.trim(),
+                historico_atendimentos: []
             }
 
             pacientes.push(paciente)
@@ -191,6 +203,13 @@
             }
         }
 
+        const dataAtend = document.getElementById("dataAtendInput")
+        const horarioAtend = document.getElementById("horarioAtendInput")
+        const categoriaAtend = document.getElementById("categoriaAtendInput")
+        const valorAtend = document.getElementById("valorAtendInput")
+        const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
+
+        
     </script>
 
 
