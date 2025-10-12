@@ -9,7 +9,8 @@
         .hidden {
             display: none;
         }
-        body{
+
+        body {
             font-family: 'Lato', sans-serif;
         }
     </style>
@@ -49,10 +50,9 @@
         <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
         <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
         <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
-        <p>Valor do atendimento: <input type="number" id="valorAtendPacienteInput"
-                placeholder="Digite o valor de atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoPacienteInput"
-                placeholder="Digite a forma de pagamento"></p>
+        <p>Valor do atendimento: <input type="number" id="valorAtendPacienteInput"placeholder="Digite o valor de atendimento"></p>
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoPacienteInput"placeholder="Selecione a forma de pagamento"></p>
+        <!-- vou colocar as formas de pagamento depois -->
         <br>
 
         <button onclick="CadastrarPaciente()">Salvar</button>
@@ -67,6 +67,15 @@
 
     <div id="SecaoRegistroAtendimentos" class="hidden">
         <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
+        <p>Data: <input type="date" id="dataAtendInput"></p>
+        <p>Horário: <input type="time" id="horarioAtendInput"></p>
+        <p>Categoria: <input type="text" id="categoriaAtendInput" placeholder="Selecione uma categoria"></p>
+        <!-- vou colocar as categorias depois -->
+        <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
+        <!-- colocar as formas de pagamento depois -->
+        <br>
+        <button>Salvar</button> <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
     </div>
 
     <script>
@@ -93,19 +102,19 @@
             divCadastroPacientes.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
-        function AbrirHistoricoAtend(){
+        function AbrirHistoricoAtend() {
             divHistoricoAtend.classList.remove("hidden")
             divPacientesCadastrados.classList.add("hidden")
         }
-        function FecharHistoricoAtend(){
+        function FecharHistoricoAtend() {
             divHistoricoAtend.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
-        function AbrirSecaoRegistroAtend(){
+        function AbrirSecaoRegistroAtend() {
             divHistoricoAtend.classList.add("hidden")
             divRegistroAtend.classList.remove("hidden")
         }
-        function FecharSecaoRegistroAtend(){
+        function FecharSecaoRegistroAtend() {
             divHistoricoAtend.classList.remove("hidden")
             divRegistroAtend.classList.add("hidden")
         }
