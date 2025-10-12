@@ -9,6 +9,9 @@
         .hidden {
             display: none;
         }
+        body{
+            font-family: 'Lato', sans-serif;
+        }
     </style>
 </head>
 
@@ -56,8 +59,14 @@
         <button onclick="FecharSecaoCadastro()">Cancelar</button>
     </div>
 
-    <div id="HistoricoAtendimentos">
+    <div id="HistoricoAtendimentos" class="hidden">
         <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
+        <br><br>
+        <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
+    </div>
+
+    <div id="SecaoRegistroAtendimentos" class="hidden">
+        <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
     </div>
 
     <script>
@@ -65,6 +74,7 @@
         const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
         const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
         const divHistoricoAtend = document.getElementById("HistoricoAtendimentos")
+        const divRegistroAtend = document.getElementById("SecaoRegistroAtendimentos")
 
         function AbrirSecaoCadastro() {
             divCadastroPacientes.classList.remove("hidden")
@@ -91,6 +101,14 @@
             divHistoricoAtend.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
+        function AbrirSecaoRegistroAtend(){
+            divHistoricoAtend.classList.add("hidden")
+            divRegistroAtend.classList.remove("hidden")
+        }
+        function FecharSecaoRegistroAtend(){
+            divHistoricoAtend.classList.remove("hidden")
+            divRegistroAtend.classList.add("hidden")
+        }
 
         const nomePaciente = document.getElementById("nomePacienteInput")
         const cpfPaciente = document.getElementById("cpfPacienteInput")
@@ -112,7 +130,7 @@
                 profissao: profissaoPaciente.value.trim(),
                 bairro: bairroPaciente.value.trim(),
                 valor_atendimento: valorAtendPaciente.value.trim(),
-                forma_pagamento: formaPagamentoPaciente.value.trim()
+                forma_pagamento: formaPagamentoPaciente.value.trim(),
             }
 
             pacientes.push(paciente)
@@ -147,7 +165,7 @@
                 <th>${pacientes[i].forma_pagamento.trim()}</th>
                 <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
                 <th><button>Editar</button></th>
-                <th><button onclick="AbrirHistoricoAtend()">Histórico de atendimento</button></th>
+                <th><button onclick="AbrirHistoricoAtend()">Histórico de atendimentos</button></th>
             `
                 TabelaPacientesCadastrados.appendChild(linha)
             }
