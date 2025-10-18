@@ -1,278 +1,298 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+    <!DOCTYPE html>
+    <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de pacientes</title>
-    <style>
-        .hidden {
-            display: none;
-        }
-
-        body {
-            font-family: 'Lato', sans-serif;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Registro de pacientes</h1>
-
-    <div id="PacientesCadastrados">
-        <h2>Pacientes cadastrados</h2>
-
-        <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
-        <br><br>
-
-        <table border="1">
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Data de nascimento</th>
-                <th>Telefone</th>
-                <th>Profissão</th>
-                <th>Bairro</th>
-                <th colspan="3">Opções de configuração</th>
-            </tr>
-            <tbody id="TabelaPacientesCadastrados"></tbody>
-        </table>
-    </div>
-
-    <div id="SecaoCadastroPacientes" class="hidden">
-        <h2>Cadastro - preencha as informações do novo paciente</h2>
-
-        <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
-        <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
-        <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
-        <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
-        <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
-        <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
-        <br>
-
-        <button onclick="CadastrarPaciente()">Salvar</button>
-        <button onclick="FecharSecaoCadastro()">Cancelar</button>
-    </div>
-
-    <div id="HistoricoAtendimentos" class="hidden">
-        <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
-        <br><br><br>
-        <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
-        <br><br>
-
-        <table border="1">
-            <tr>
-                <th>Data</th>
-                <th>Horário</th>
-                <th>Categoria</th>
-                <th>Valor</th>
-                <th>Forma de pagamento</th>
-                <th colspan="2">Opções de configuração</th>
-            </tr>
-            <tbody id="TabelaHistoricoAtendimentos"></tbody>
-        </table>
-    </div>
-
-    <div id="SecaoRegistroAtendimentos" class="hidden">
-        <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
-        <p>Data: <input type="date" id="dataAtendInput"></p>
-        <p>Horário: <input type="time" id="horarioAtendInput"></p>
-        <p>Categoria: <input type="text" id="categoriaAtendInput" placeholder="Selecione uma categoria"></p>
-        <!-- vou colocar as categorias depois -->
-        <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
-                placeholder="Selecione uma forma de pagamento"></p>
-        <!-- colocar as formas de pagamento depois -->
-        <br>
-        <button onclick="RegistrarAtendimento()">Salvar</button> <button
-            onclick="FecharSecaoRegistroAtend()">Cancelar</button>
-    </div>
-
-    <script>
-        let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
-
-        const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
-        const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
-        const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
-        const divHistoricoAtend = document.getElementById("HistoricoAtendimentos")
-        const divRegistroAtend = document.getElementById("SecaoRegistroAtendimentos")
-
-        let posicaoPacienteAtual = null
-
-        function AbrirSecaoCadastro() {
-            divCadastroPacientes.classList.remove("hidden")
-            divPacientesCadastrados.classList.add("hidden")
-        }
-        function FecharSecaoCadastro() {
-            nomePaciente.value = ""
-            cpfPaciente.value = ""
-            dataNascPaciente.value = ""
-            telefonePaciente.value = ""
-            profissaoPaciente.value = ""
-            bairroPaciente.value = ""
-
-            divCadastroPacientes.classList.add("hidden")
-            divPacientesCadastrados.classList.remove("hidden")
-        }
-        function AbrirHistoricoAtend(i) {
-            posicaoPacienteAtual = i
-
-            divHistoricoAtend.classList.remove("hidden")
-            divPacientesCadastrados.classList.add("hidden")
-
-            AtualizarTabelaHistAtend()
-        }
-        function FecharHistoricoAtend() {
-            divHistoricoAtend.classList.add("hidden")
-            divPacientesCadastrados.classList.remove("hidden")
-        }
-        function AbrirSecaoRegistroAtend() {
-            divHistoricoAtend.classList.add("hidden")
-            divRegistroAtend.classList.remove("hidden")
-        }
-        function FecharSecaoRegistroAtend() {
-            dataAtend.value = ""
-            horarioAtend.value = ""
-            categoriaAtend.value = ""
-            valorAtend.value = ""
-            formaPagamentoAtend.value = ""
-
-            divHistoricoAtend.classList.remove("hidden")
-            divRegistroAtend.classList.add("hidden")
-        }
-
-        const nomePaciente = document.getElementById("nomePacienteInput")
-        const cpfPaciente = document.getElementById("cpfPacienteInput")
-        const dataNascPaciente = document.getElementById("dataNascPacienteInput")
-        const telefonePaciente = document.getElementById("telefonePacienteInput")
-        const profissaoPaciente = document.getElementById("profissaoPacienteInput")
-        const bairroPaciente = document.getElementById("bairroPacienteInput")
-
-        const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
-
-        function CadastrarPaciente() {
-            let paciente = {
-                nome: nomePaciente.value.trim(),
-                cpf: cpfPaciente.value.replace(/\D/g, '').trim(),
-                data_nascimento: dataNascPaciente.value.trim(),
-                telefone: telefonePaciente.value.replace(/\D/g, '').trim(),
-                profissao: profissaoPaciente.value.trim(),
-                bairro: bairroPaciente.value.trim(),
-                historico_atendimentos: []
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro de pacientes</title>
+        <style>
+            .hidden {
+                display: none;
             }
 
-            pacientes.push(paciente)
-            console.log(pacientes)
-
-            localStorage.setItem("pacientes", JSON.stringify(pacientes))
-
-            FecharSecaoCadastro()
-            AtualizarTabela()
-        }
-
-        window.onload = function () {
-            AtualizarTabela()
-        }
-
-        function AtualizarTabela() {
-            TabelaPacientesCadastrados.innerHTML = ""
-
-            for (let i = 0; i < pacientes.length; i++) {
-                const linha = document.createElement("tr")
-                linha.innerHTML = `
-                <th>${pacientes[i].nome.trim()}</th>
-                <th>${pacientes[i].cpf.trim()}</th>
-                <th>${pacientes[i].data_nascimento.trim()}</th>
-                <th>${pacientes[i].telefone.trim()}</th>
-                <th>${pacientes[i].profissao.trim()}</th>
-                <th>${pacientes[i].bairro.trim()}</th>
-                <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
-                <th><button>Editar</button></th>
-                <th><button onclick="AbrirHistoricoAtend(${i})">Histórico de atendimentos</button></th>
-            `
-                TabelaPacientesCadastrados.appendChild(linha)
+            body {
+                font-family: 'Lato', sans-serif;
             }
-        }
+        </style>
+    </head>
 
-        function ExcluirPaciente(i) {
-            const confirmar = confirm("Deseja mesmo excluir esse paciente?")
+    <body>
+        <h1>Registro de pacientes</h1>
 
-            if (confirmar) {
-                pacientes.splice(i, 1) // remove do array
-                localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
+        <div id="PacientesCadastrados">
+            <h2>Pacientes cadastrados</h2>
 
-                AtualizarTabela()
+            <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
+            <br><br>
+
+            <table border="1">
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Data de nascimento</th>
+                    <th>Telefone</th>
+                    <th>Profissão</th>
+                    <th>Bairro</th>
+                    <th colspan="3">Opções de configuração</th>
+                </tr>
+                <tbody id="TabelaPacientesCadastrados"></tbody>
+            </table>
+        </div>
+
+        <div id="SecaoCadastroPacientes" class="hidden">
+            <h2>Cadastro - preencha as informações do novo paciente</h2>
+
+            <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
+            <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
+            <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
+            <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
+            <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
+            <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
+            <br>
+
+            <button onclick="CadastrarPaciente()" id="botaoSalvar">Salvar</button>
+            <button onclick="FecharSecaoCadastro()">Cancelar</button>
+        </div>
+
+        <div id="HistoricoAtendimentos" class="hidden">
+            <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
+            <br><br><br>
+            <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
+            <br><br>
+
+            <table border="1">
+                <tr>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Categoria</th>
+                    <th>Valor</th>
+                    <th>Forma de pagamento</th>
+                    <th colspan="2">Opções de configuração</th>
+                </tr>
+                <tbody id="TabelaHistoricoAtendimentos"></tbody>
+            </table>
+        </div>
+
+        <div id="SecaoRegistroAtendimentos" class="hidden">
+            <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
+            <p>Data: <input type="date" id="dataAtendInput"></p>
+            <p>Horário: <input type="time" id="horarioAtendInput"></p>
+            <p>Categoria: <input type="text" id="categoriaAtendInput" placeholder="Selecione uma categoria"></p>
+            <!-- vou colocar as categorias depois -->
+            <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
+            <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
+                    placeholder="Selecione uma forma de pagamento"></p>
+            <!-- colocar as formas de pagamento depois -->
+            <br>
+            <button onclick="RegistrarAtendimento()">Salvar</button>
+            <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
+        </div>
+
+        <script>
+            let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
+
+            const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
+            const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
+            const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
+            const divHistoricoAtend = document.getElementById("HistoricoAtendimentos")
+            const divRegistroAtend = document.getElementById("SecaoRegistroAtendimentos")
+
+            let posicaoPacienteAtual = null
+            let editando = false
+
+            function AbrirSecaoCadastro() {
+                divCadastroPacientes.classList.remove("hidden")
+                divPacientesCadastrados.classList.add("hidden")
             }
-        }
+            function FecharSecaoCadastro() {
+                nomePaciente.value = ""
+                cpfPaciente.value = ""
+                dataNascPaciente.value = ""
+                telefonePaciente.value = ""
+                profissaoPaciente.value = ""
+                bairroPaciente.value = ""
 
-        const dataAtend = document.getElementById("dataAtendInput")
-        const horarioAtend = document.getElementById("horarioAtendInput")
-        const categoriaAtend = document.getElementById("categoriaAtendInput")
-        const valorAtend = document.getElementById("valorAtendInput")
-        const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
+                editando = false
 
-        const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
-
-        function RegistrarAtendimento() {
-            console.log(posicaoPacienteAtual)
-
-            let atendimento = {
-                data: dataAtend.value.trim(),
-                horario: horarioAtend.value.trim(),
-                categoria: categoriaAtend.value.trim(),
-                valor: valorAtend.value.trim(),
-                forma_pagamento: formaPagamentoAtend.value.trim()
+                divCadastroPacientes.classList.add("hidden")
+                divPacientesCadastrados.classList.remove("hidden")
             }
+            function AbrirHistoricoAtend(i) {
+                posicaoPacienteAtual = i
 
-            pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
-            localStorage.setItem("pacientes", JSON.stringify(pacientes))
-
-            alert("Atendimento registrado com sucesso!")
-            AtualizarTabelaHistAtend()
-            FecharSecaoRegistroAtend()
-        }
-
-        function AtualizarTabelaHistAtend() {
-            if (posicaoPacienteAtual == null)
-                return
-
-            if (!pacientes[posicaoPacienteAtual] || !pacientes[posicaoPacienteAtual].historico_atendimentos)
-                return
-
-            TabelaHistoricoAtendimentos.innerHTML = ""
-
-            for (let i = 0; i < pacientes[posicaoPacienteAtual].historico_atendimentos.length; i++) {
-                const atendimento = pacientes[posicaoPacienteAtual].historico_atendimentos[i]
-
-                const linha = document.createElement("tr")
-                linha.innerHTML = `
-                <th>${atendimento.data.trim()}</th>
-                <th>${atendimento.horario.trim()}</th>
-                <th>${atendimento.categoria.trim()}</th>
-                <th>${atendimento.valor.trim()}</th>
-                <th>${atendimento.forma_pagamento.trim()}</th>
-                <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
-                <th><button>Editar</button></th>
-                `
-
-                TabelaHistoricoAtendimentos.appendChild(linha)
-            }
-        }
-
-        function ExcluirAtendimento(i){
-            const confirmar = confirm("Deseja mesmo excluir esse atendimento?")
-
-            if(confirmar){
-                pacientes[posicaoPacienteAtual].historico_atendimentos.splice(i, 1)
-                localStorage.setItem("pacientes", JSON.stringify(pacientes))
+                divHistoricoAtend.classList.remove("hidden")
+                divPacientesCadastrados.classList.add("hidden")
 
                 AtualizarTabelaHistAtend()
             }
-        }
+            function FecharHistoricoAtend() {
+                divHistoricoAtend.classList.add("hidden")
+                divPacientesCadastrados.classList.remove("hidden")
+            }
+            function AbrirSecaoRegistroAtend() {
+                divHistoricoAtend.classList.add("hidden")
+                divRegistroAtend.classList.remove("hidden")
+            }
+            function FecharSecaoRegistroAtend() {
+                dataAtend.value = ""
+                horarioAtend.value = ""
+                categoriaAtend.value = ""
+                valorAtend.value = ""
+                formaPagamentoAtend.value = ""
 
-    </script>
+                divHistoricoAtend.classList.remove("hidden")
+                divRegistroAtend.classList.add("hidden")
+            }
 
+            const nomePaciente = document.getElementById("nomePacienteInput")
+            const cpfPaciente = document.getElementById("cpfPacienteInput")
+            const dataNascPaciente = document.getElementById("dataNascPacienteInput")
+            const telefonePaciente = document.getElementById("telefonePacienteInput")
+            const profissaoPaciente = document.getElementById("profissaoPacienteInput")
+            const bairroPaciente = document.getElementById("bairroPacienteInput")
 
-</body>
+            const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
 
-</html>
+            function CadastrarPaciente() {
+                let paciente = {
+                    nome: nomePaciente.value.trim(),
+                    cpf: cpfPaciente.value.replace(/\D/g, '').trim(),
+                    data_nascimento: dataNascPaciente.value.trim(),
+                    telefone: telefonePaciente.value.replace(/\D/g, '').trim(),
+                    profissao: profissaoPaciente.value.trim(),
+                    bairro: bairroPaciente.value.trim(),
+                    historico_atendimentos: []
+                }
+
+                if (editando == true) {
+                    paciente.historico_atendimentos = pacientes[posicaoPacienteAtual].historico_atendimentos
+                    pacientes[posicaoPacienteAtual] = paciente
+                    editando = false
+                }
+                else {
+                    pacientes.push(paciente)
+                }
+
+                localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+                FecharSecaoCadastro()
+                AtualizarTabela()
+            }
+
+            window.onload = function () {
+                AtualizarTabela()
+            }
+
+            function AtualizarTabela() {
+                TabelaPacientesCadastrados.innerHTML = ""
+
+                for (let i = 0; i < pacientes.length; i++) {
+                    const linha = document.createElement("tr")
+                    linha.innerHTML = `
+                    <th>${pacientes[i].nome.trim()}</th>
+                    <th>${pacientes[i].cpf.trim()}</th>
+                    <th>${pacientes[i].data_nascimento.trim()}</th>
+                    <th>${pacientes[i].telefone.trim()}</th>
+                    <th>${pacientes[i].profissao.trim()}</th>
+                    <th>${pacientes[i].bairro.trim()}</th>
+                    <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
+                    <th><button onclick="EditarPaciente(${i})">Editar</button></th>
+                    <th><button onclick="AbrirHistoricoAtend(${i})">Histórico de atendimentos</button></th>
+                `
+                    TabelaPacientesCadastrados.appendChild(linha)
+                }
+            }
+
+            function ExcluirPaciente(i) {
+                const confirmar = confirm("Deseja mesmo excluir esse paciente?")
+
+                if (confirmar) {
+                    pacientes.splice(i, 1) // remove do array
+                    localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
+
+                    AtualizarTabela()
+                }
+            }
+
+            function EditarPaciente(i) {
+                AbrirSecaoCadastro()
+
+                nomePaciente.value = pacientes[i].nome
+                cpfPaciente.value = pacientes[i].cpf
+                dataNascPaciente.value = pacientes[i].data_nascimento
+                telefonePaciente.value = pacientes[i].telefone
+                profissaoPaciente.value = pacientes[i].profissao
+                bairroPaciente.value = pacientes[i].bairro
+
+                editando = true
+                posicaoPacienteAtual = i
+            }
+
+            const dataAtend = document.getElementById("dataAtendInput")
+            const horarioAtend = document.getElementById("horarioAtendInput")
+            const categoriaAtend = document.getElementById("categoriaAtendInput")
+            const valorAtend = document.getElementById("valorAtendInput")
+            const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
+
+            const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
+
+            function RegistrarAtendimento() {
+                let atendimento = {
+                    data: dataAtend.value.trim(),
+                    horario: horarioAtend.value.trim(),
+                    categoria: categoriaAtend.value.trim(),
+                    valor: valorAtend.value.trim(),
+                    forma_pagamento: formaPagamentoAtend.value.trim()
+                }
+
+                pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
+                localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+                alert("Atendimento registrado com sucesso!")
+                AtualizarTabelaHistAtend()
+                FecharSecaoRegistroAtend()
+            }
+
+            function AtualizarTabelaHistAtend() {
+                if (posicaoPacienteAtual == null)
+                    return
+
+                if (!pacientes[posicaoPacienteAtual] || !pacientes[posicaoPacienteAtual].historico_atendimentos)
+                    return
+
+                TabelaHistoricoAtendimentos.innerHTML = ""
+
+                for (let i = 0; i < pacientes[posicaoPacienteAtual].historico_atendimentos.length; i++) {
+                    const atendimento = pacientes[posicaoPacienteAtual].historico_atendimentos[i]
+
+                    const linha = document.createElement("tr")
+                    linha.innerHTML = `
+                    <th>${atendimento.data.trim()}</th>
+                    <th>${atendimento.horario.trim()}</th>
+                    <th>${atendimento.categoria.trim()}</th>
+                    <th>${atendimento.valor.trim()}</th>
+                    <th>${atendimento.forma_pagamento.trim()}</th>
+                    <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
+                    <th><button>Editar</button></th>
+                    `
+
+                    TabelaHistoricoAtendimentos.appendChild(linha)
+                }
+            }
+
+            function ExcluirAtendimento(i) {
+                const confirmar = confirm("Deseja mesmo excluir esse atendimento?")
+
+                if (confirmar) {
+                    pacientes[posicaoPacienteAtual].historico_atendimentos.splice(i, 1)
+                    localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+                    AtualizarTabelaHistAtend()
+                }
+            }
+
+        </script>
+
+    </body>
+
+    </html>
