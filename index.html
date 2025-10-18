@@ -33,8 +33,6 @@
                 <th>Telefone</th>
                 <th>Profissão</th>
                 <th>Bairro</th>
-                <th>Valor de atendimento</th>
-                <th>Forma de pagamento</th>
                 <th colspan="3">Opções de configuração</th>
             </tr>
             <tbody id="TabelaPacientesCadastrados"></tbody>
@@ -50,9 +48,6 @@
         <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
         <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
         <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
-        <p>Valor do atendimento: <input type="number" id="valorAtendPacienteInput"placeholder="Digite o valor de atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoPacienteInput"placeholder="Selecione a forma de pagamento"></p>
-        <!-- vou colocar as formas de pagamento depois -->
         <br>
 
         <button onclick="CadastrarPaciente()">Salvar</button>
@@ -61,8 +56,9 @@
 
     <div id="HistoricoAtendimentos" class="hidden">
         <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
-        <br><br>
+        <br><br><br>
         <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
+        <br><br>
 
         <table border="1">
             <tr>
@@ -90,11 +86,15 @@
     </div>
 
     <script>
+        let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
+        
         const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
         const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
         const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
         const divHistoricoAtend = document.getElementById("HistoricoAtendimentos")
         const divRegistroAtend = document.getElementById("SecaoRegistroAtendimentos")
+
+        let posicaoPacienteAtual = null
 
         function AbrirSecaoCadastro() {
             divCadastroPacientes.classList.remove("hidden")
@@ -107,13 +107,12 @@
             telefonePaciente.value = ""
             profissaoPaciente.value = ""
             bairroPaciente.value = ""
-            valorAtendPaciente.value = ""
-            formaPagamentoPaciente.value = ""
 
             divCadastroPacientes.classList.add("hidden")
             divPacientesCadastrados.classList.remove("hidden")
         }
-        function AbrirHistoricoAtend() {
+        function AbrirHistoricoAtend(i) {
+            posicaoPacienteAtual = i
             divHistoricoAtend.classList.remove("hidden")
             divPacientesCadastrados.classList.add("hidden")
         }
@@ -136,10 +135,8 @@
         const telefonePaciente = document.getElementById("telefonePacienteInput")
         const profissaoPaciente = document.getElementById("profissaoPacienteInput")
         const bairroPaciente = document.getElementById("bairroPacienteInput")
-        const valorAtendPaciente = document.getElementById("valorAtendPacienteInput")
-        const formaPagamentoPaciente = document.getElementById("formaPagamentoPacienteInput")
 
-        let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
+        const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
 
         function CadastrarPaciente() {
             let paciente = {
@@ -149,8 +146,6 @@
                 telefone: telefonePaciente.value.trim(),
                 profissao: profissaoPaciente.value.trim(),
                 bairro: bairroPaciente.value.trim(),
-                valor_atendimento: valorAtendPaciente.value.trim(),
-                forma_pagamento: formaPagamentoPaciente.value.trim(),
                 historico_atendimentos: []
             }
 
@@ -162,9 +157,6 @@
             FecharSecaoCadastro()
             AtualizarTabela()
         }
-
-
-        const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
 
         window.onload = function () {
             AtualizarTabela()
@@ -182,21 +174,19 @@
                 <th>${pacientes[i].telefone.trim()}</th>
                 <th>${pacientes[i].profissao.trim()}</th>
                 <th>${pacientes[i].bairro.trim()}</th>
-                <th>${pacientes[i].valor_atendimento.trim()}</th>
-                <th>${pacientes[i].forma_pagamento.trim()}</th>
                 <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
                 <th><button>Editar</button></th>
-                <th><button onclick="AbrirHistoricoAtend()">Histórico de atendimentos</button></th>
+                <th><button onclick="AbrirHistoricoAtend(${i})">Histórico de atendimentos</button></th>
             `
                 TabelaPacientesCadastrados.appendChild(linha)
             }
         }
 
-        function ExcluirPaciente(indice) {
+        function ExcluirPaciente(i) {
             const confirmar = confirm("Deseja mesmo excluir esse paciente?")
 
             if (confirmar) {
-                pacientes.splice(indice, 1) // remove do array
+                pacientes.splice(i, 1) // remove do array
                 localStorage.setItem("pacientes", JSON.stringify(pacientes)) // remove do localstorage
 
                 AtualizarTabela()
@@ -209,7 +199,6 @@
         const valorAtend = document.getElementById("valorAtendInput")
         const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 
-        
     </script>
 
 
