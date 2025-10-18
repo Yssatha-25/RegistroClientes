@@ -82,7 +82,7 @@
         <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
         <!-- colocar as formas de pagamento depois -->
         <br>
-        <button>Salvar</button> <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
+        <button onclick="RegistrarAtendimento()">Salvar</button> <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
     </div>
 
     <script>
@@ -141,9 +141,9 @@
         function CadastrarPaciente() {
             let paciente = {
                 nome: nomePaciente.value.trim(),
-                cpf: cpfPaciente.value.trim(),
+                cpf: cpfPaciente.value.replace(/\D/g, '').trim(),
                 data_nascimento: dataNascPaciente.value.trim(),
-                telefone: telefonePaciente.value.trim(),
+                telefone: telefonePaciente.value.replace(/\D/g, '').trim(),
                 profissao: profissaoPaciente.value.trim(),
                 bairro: bairroPaciente.value.trim(),
                 historico_atendimentos: []
@@ -198,6 +198,21 @@
         const categoriaAtend = document.getElementById("categoriaAtendInput")
         const valorAtend = document.getElementById("valorAtendInput")
         const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
+
+        function RegistrarAtendimento(){
+            console.log(posicaoPacienteAtual)
+
+            let atendimento = {
+                data: dataAtend.value.trim(),
+                horario: horarioAtend.value.trim(),
+                categoria: categoriaAtend.value.trim(),
+                valor: valorAtend.value.trim(),
+                forma_pagamento: formaPagamentoAtend.value.trim()
+            }
+
+            pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
+            localStorage.setItem("pacientes", JSON.stringify(pacientes))
+        }
 
     </script>
 
