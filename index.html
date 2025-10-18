@@ -55,6 +55,8 @@
         </div>
 
         <div id="HistoricoAtendimentos" class="hidden">
+            <h2>Historico de atendimentos</h2>
+
             <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
             <br><br><br>
             <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
@@ -64,7 +66,7 @@
                 <tr>
                     <th>Data</th>
                     <th>Horário</th>
-                    <th>Categoria</th>
+                    <th>Serviço</th>
                     <th>Valor</th>
                     <th>Forma de pagamento</th>
                     <th colspan="2">Opções de configuração</th>
@@ -77,11 +79,10 @@
             <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
             <p>Data: <input type="date" id="dataAtendInput"></p>
             <p>Horário: <input type="time" id="horarioAtendInput"></p>
-            <p>Categoria: <input type="text" id="categoriaAtendInput" placeholder="Selecione uma categoria"></p>
-            <!-- vou colocar as categorias depois -->
+            <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma servico"></p>
+            <!-- vou colocar as servicos depois -->
             <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-            <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
-                    placeholder="Selecione uma forma de pagamento"></p>
+            <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
             <!-- colocar as formas de pagamento depois -->
             <br>
             <button onclick="RegistrarAtendimento()">Salvar</button>
@@ -136,7 +137,7 @@
             function FecharSecaoRegistroAtend() {
                 dataAtend.value = ""
                 horarioAtend.value = ""
-                categoriaAtend.value = ""
+                servicoAtend.value = ""
                 valorAtend.value = ""
                 formaPagamentoAtend.value = ""
 
@@ -230,7 +231,7 @@
 
             const dataAtend = document.getElementById("dataAtendInput")
             const horarioAtend = document.getElementById("horarioAtendInput")
-            const categoriaAtend = document.getElementById("categoriaAtendInput")
+            const servicoAtend = document.getElementById("servicoAtendInput")
             const valorAtend = document.getElementById("valorAtendInput")
             const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 
@@ -240,7 +241,7 @@
                 let atendimento = {
                     data: dataAtend.value.trim(),
                     horario: horarioAtend.value.trim(),
-                    categoria: categoriaAtend.value.trim(),
+                    servico: servicoAtend.value.trim(),
                     valor: valorAtend.value.trim(),
                     forma_pagamento: formaPagamentoAtend.value.trim()
                 }
@@ -269,7 +270,7 @@
                     linha.innerHTML = `
                     <th>${atendimento.data.trim()}</th>
                     <th>${atendimento.horario.trim()}</th>
-                    <th>${atendimento.categoria.trim()}</th>
+                    <th>${atendimento.servico.trim()}</th>
                     <th>${atendimento.valor.trim()}</th>
                     <th>${atendimento.forma_pagamento.trim()}</th>
                     <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
