@@ -251,11 +251,22 @@
                 <th>${atendimento.categoria.trim()}</th>
                 <th>${atendimento.valor.trim()}</th>
                 <th>${atendimento.forma_pagamento.trim()}</th>
-                <th><button>Excluir</button></th>
+                <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
                 <th><button>Editar</button></th>
                 `
 
                 TabelaHistoricoAtendimentos.appendChild(linha)
+            }
+        }
+
+        function ExcluirAtendimento(i){
+            const confirmar = confirm("Deseja mesmo excluir esse atendimento?")
+
+            if(confirmar){
+                pacientes[posicaoPacienteAtual].historico_atendimentos.splice(i, 1)
+                localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+                AtualizarTabelaHistAtend()
             }
         }
 
