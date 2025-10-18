@@ -67,6 +67,7 @@
                 <th>Categoria</th>
                 <th>Valor</th>
                 <th>Forma de pagamento</th>
+                <th colspan="2">Opções de configuração</th>
             </tr>
             <tbody id="TabelaHistoricoAtendimentos"></tbody>
         </table>
@@ -79,15 +80,17 @@
         <p>Categoria: <input type="text" id="categoriaAtendInput" placeholder="Selecione uma categoria"></p>
         <!-- vou colocar as categorias depois -->
         <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
+                placeholder="Selecione uma forma de pagamento"></p>
         <!-- colocar as formas de pagamento depois -->
         <br>
-        <button onclick="RegistrarAtendimento()">Salvar</button> <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
+        <button onclick="RegistrarAtendimento()">Salvar</button> <button
+            onclick="FecharSecaoRegistroAtend()">Cancelar</button>
     </div>
 
     <script>
         let pacientes = JSON.parse(localStorage.getItem("pacientes")) || []
-        
+
         const divPacientesCadastrados = document.getElementById("PacientesCadastrados")
         const divCadastroPacientes = document.getElementById("SecaoCadastroPacientes")
         const divInformacoesHistAtend = document.getElementById("SecaoInformacoesHistAtend")
@@ -113,8 +116,11 @@
         }
         function AbrirHistoricoAtend(i) {
             posicaoPacienteAtual = i
+
             divHistoricoAtend.classList.remove("hidden")
             divPacientesCadastrados.classList.add("hidden")
+
+            AtualizarTabelaHistAtend()
         }
         function FecharHistoricoAtend() {
             divHistoricoAtend.classList.add("hidden")
@@ -125,6 +131,12 @@
             divRegistroAtend.classList.remove("hidden")
         }
         function FecharSecaoRegistroAtend() {
+            dataAtend.value = ""
+            horarioAtend.value = ""
+            categoriaAtend.value = ""
+            valorAtend.value = ""
+            formaPagamentoAtend.value = ""
+
             divHistoricoAtend.classList.remove("hidden")
             divRegistroAtend.classList.add("hidden")
         }
@@ -199,7 +211,9 @@
         const valorAtend = document.getElementById("valorAtendInput")
         const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 
-        function RegistrarAtendimento(){
+        const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
+
+        function RegistrarAtendimento() {
             console.log(posicaoPacienteAtual)
 
             let atendimento = {
@@ -212,6 +226,37 @@
 
             pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
             localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+            alert("Atendimento registrado com sucesso!")
+            AtualizarTabelaHistAtend()
+            FecharSecaoRegistroAtend()
+        }
+
+        function AtualizarTabelaHistAtend() {
+            if (posicaoPacienteAtual == null)
+                return
+
+            if (!pacientes[posicaoPacienteAtual] || !pacientes[posicaoPacienteAtual].historico_atendimentos)
+                return
+
+            TabelaHistoricoAtendimentos.innerHTML = ""
+
+            for (let i = 0; i < pacientes[posicaoPacienteAtual].historico_atendimentos.length; i++) {
+                const atendimento = pacientes[posicaoPacienteAtual].historico_atendimentos[i]
+
+                const linha = document.createElement("tr")
+                linha.innerHTML = `
+                <th>${atendimento.data.trim()}</th>
+                <th>${atendimento.horario.trim()}</th>
+                <th>${atendimento.categoria.trim()}</th>
+                <th>${atendimento.valor.trim()}</th>
+                <th>${atendimento.forma_pagamento.trim()}</th>
+                <th><button>Excluir</button></th>
+                <th><button>Editar</button></th>
+                `
+
+                TabelaHistoricoAtendimentos.appendChild(linha)
+            }
         }
 
     </script>
