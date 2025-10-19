@@ -19,7 +19,7 @@
             display: inline-block;
         }
 
-        .barraPesquisaInput {
+        .barra-pesquisa-input {
             padding-left: 50px;
             height: 30px;
             border-radius: 8px;
@@ -43,6 +43,8 @@
             left: 90%;
             top: 50%;
             transform: translateY(-50%);
+            font-size: 15px;
+            cursor: pointer
         }
 
         .botao-limpar {
@@ -62,7 +64,7 @@
         <br><br>
 
         <div class="barra-pesquisa" id="barraPesquisaPacientesDiv">
-            <input type="text" class="barraPesquisaInput" id="barraPesquisaPacientes"
+            <input type="text" class="barra-pesquisa-input" id="barraPesquisaPacientes"
                 placeholder="Buscar paciente por nome ou telefone...">
             <img src="Imagens/lupa.png" class="icone-lupa">
             <button class="botao-pesquisar" onclick="PesquisarPaciente()">Pesquisar</button>
@@ -85,7 +87,8 @@
             <tbody id="TabelaPacientesCadastrados"></tbody>
         </table>
 
-        <p id="avisoPacienteNaoEncontrado" class="hidden">Nenhum paciente foi encontrado. Verifique se o nome ou telefone está correto!</p>
+        <p id="avisoPacienteNaoEncontrado" class="hidden">Nenhum paciente foi encontrado. Verifique se o nome ou
+            telefone está correto!</p>
     </div>
 
     <div id="SecaoCadastroPacientes" class="hidden">
@@ -114,17 +117,17 @@
         <br><br>
 
         <div class="barra-pesquisa">
-            <input type="text" class="barraPesquisaInput" id="barraPesquisaAtendimentos"
+            <input type="text" class="barra-pesquisa-input" id="barraPesquisaAtendimentos"
                 placeholder="Buscar atendimento por data, horário ou serviço...">
             <img src="Imagens/lupa.png" class="icone-lupa">
-            <button class="botao-pesquisar">Pesquisar</button>
+            <button class="botao-pesquisar" onclick="PesquisarAtendimento()">Pesquisar</button>
         </div>
 
-        <button id="botaoLimparPesquisa" class="botao-limpar hidden" onclick="LimparPesquisaPacientes()">Limpar
+        <button id="botaoLimparPesquisaAtend" class="botao-limpar hidden" onclick="LimparPesquisaAtendimentos()">Limpar
             pesquisa</button>
         <br><br>
 
-        <table border="1">
+        <table border="1" id="TabelaHistoricoAtendimentosInteira">
             <tr>
                 <th>Data</th>
                 <th>Horário</th>
@@ -135,6 +138,9 @@
             </tr>
             <tbody id="TabelaHistoricoAtendimentos"></tbody>
         </table>
+
+        <p id="avisoAtendimentoNaoEncontrado" class="hidden">Nenhum atendimento foi encontrado. Verifique se a data,
+            horário ou serviço está correto! Caso esteja procurando por uma data, lembre de utilizar "-" e digitar na ordem "ano-mês-dia".</p>
     </div>
 
     <div id="SecaoRegistroAtendimentos" class="hidden">
@@ -219,6 +225,7 @@
         const bairroPaciente = document.getElementById("bairroPacienteInput")
 
         const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
+        const TabelaPacientesCadastradosInteira = document.getElementById("TabelaPacientesCadastradosInteira")
 
         function CadastrarPaciente() {
             let paciente = {
@@ -302,7 +309,7 @@
         const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 
         const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
-        const TabelaPacientesCadastradosInteira = document.getElementById("TabelaPacientesCadastradosInteira")
+        const TabelaHistoricoAtendimentosInteira = document.getElementById("TabelaHistoricoAtendimentosInteira")
 
         function RegistrarAtendimento() {
             let atendimento = {
@@ -391,6 +398,7 @@
             }
             else {
                 botaoLimparPesquisa.classList.add("hidden")
+                AtualizarTabela()
             }
         })
 
@@ -444,6 +452,81 @@
             botaoLimparPesquisa.classList.add("hidden")
             AtualizarTabela()
         }
+
+        const barraPesquisaAtendimentos = document.getElementById("barraPesquisaAtendimentos")
+        const botaoLimparPesquisaAtend = document.getElementById("botaoLimparPesquisaAtend")
+
+        const avisoAtendimentoNaoEncontrado = document.getElementById("avisoAtendimentoNaoEncontrado")
+
+        barraPesquisaAtendimentos.addEventListener("input", () => {
+            if (barraPesquisaAtendimentos.value.trim() != "") {
+                botaoLimparPesquisaAtend.classList.remove("hidden")
+            }
+            else {
+                botaoLimparPesquisaAtend.classList.add("hidden")
+                AtualizarTabelaHistAtend()
+            }
+        })
+
+        function PesquisarAtendimento() {
+            TabelaHistoricoAtendimentosInteira.classList.remove("hidden")
+            avisoAtendimentoNaoEncontrado.classList.add("hidden")
+
+            const termo = barraPesquisaAtendimentos.value.trim().toLowerCase()
+            TabelaHistoricoAtendimentos.innerHTML = ""
+
+            if (termo == "") {
+                AtualizarTabelaHistAtend()
+                return
+            }
+
+            let encontrou = false
+
+            const pacienteAtual = pacientes[posicaoPacienteAtual]
+            if (!pacienteAtual || !pacienteAtual.historico_atendimentos) {
+                avisoAtendimentoNaoEncontrado.classList.remove("hidden")
+                return
+            }
+
+            for (let i = 0; i < pacientes[posicaoPacienteAtual].historico_atendimentos.length; i++) {
+                const data = pacientes[posicaoPacienteAtual].historico_atendimentos[i].data.toLowerCase()
+                const horario = pacientes[posicaoPacienteAtual].historico_atendimentos[i].horario.toLowerCase()
+                const servico = pacientes[posicaoPacienteAtual].historico_atendimentos[i].servico.toLowerCase()
+
+                const atendimento = pacientes[posicaoPacienteAtual].historico_atendimentos[i]
+
+                if (data.includes(termo) || horario.includes(termo) || servico.includes(termo)) {
+                    const linha = document.createElement("tr")
+
+                    linha.innerHTML = `
+                        <th>${atendimento.data.trim()}</th>
+                        <th>${atendimento.horario.trim()}</th>
+                        <th>${atendimento.servico.trim()}</th>
+                        <th>${atendimento.valor}</th>
+                        <th>${atendimento.forma_pagamento.trim()}</th> 
+                        <th><button onclick="EditarAtendimento(${i})">Editar</button></th>
+                        <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
+                        `
+
+                    TabelaHistoricoAtendimentos.appendChild(linha)
+                    encontrou = true
+                }
+            }
+
+            if (encontrou == false) {
+                TabelaHistoricoAtendimentosInteira.classList.add("hidden")
+                avisoAtendimentoNaoEncontrado.classList.remove("hidden")
+            }
+        }
+
+        function LimparPesquisaAtendimentos() {
+            barraPesquisaAtendimentos.value = ""
+            TabelaHistoricoAtendimentosInteira.classList.remove("hidden")
+            avisoAtendimentoNaoEncontrado.classList.add("hidden")
+            botaoLimparPesquisaAtend.classList.add("hidden")
+            AtualizarTabelaHistAtend()
+        }
+
     </script>
 
 </body>
