@@ -13,6 +13,37 @@
         body {
             font-family: 'Lato', sans-serif;
         }
+
+        .barra-pesquisa {
+            position: relative;
+            display: inline-block;
+        }
+
+        #barraPesquisa {
+            padding-left: 50px;
+            height: 30px;
+            border-radius: 8px;
+            border: 1px solid;
+            width: 500px;
+            font-size: large;
+        }
+
+        .icone-lupa {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            pointer-events: none;
+        }
+
+        .botao-pesquisar{
+            position: absolute;
+            left: 85%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 
@@ -23,6 +54,13 @@
         <h2>Pacientes cadastrados</h2>
 
         <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
+        <br><br>
+
+        <div class="barra-pesquisa">
+            <input type="text" id="barraPesquisa" placeholder="Buscar paciente por nome ou telefone...">
+            <img src="Imagens/lupa.png" class="icone-lupa">
+            <button class="botao-pesquisar">Pesquisar</button>
+        </div>
         <br><br>
 
         <table border="1">
@@ -40,7 +78,8 @@
     </div>
 
     <div id="SecaoCadastroPacientes" class="hidden">
-        <h2>Cadastro - preencha as informações do novo paciente</h2>
+        <h2>Pacientes cadastrados<h2>
+        <h3>Cadastro - informações do paciente</h3>
 
         <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
         <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
@@ -58,8 +97,16 @@
         <h2>Historico de atendimentos</h2>
 
         <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
-        <br><br><br>
+        <br><br>
+
         <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
+        <br><br>
+
+        <div class="barra-pesquisa">
+            <input type="text" id="barraPesquisa" placeholder="Buscar atendimento por data, horário ou serviço...">
+            <img src="Imagens/lupa.png" class="icone-lupa">
+            <button class="botao-pesquisar">Pesquisar</button>
+        </div>
         <br><br>
 
         <table border="1">
@@ -76,15 +123,15 @@
     </div>
 
     <div id="SecaoRegistroAtendimentos" class="hidden">
-        <button onclick="FecharSecaoRegistroAtend()">Voltar ao histórico de atendimentos</button>
+        <h2>Historico de atendimentos</h2>
+
+        <h3>Informações do atendimento</h3>
+
         <p>Data: <input type="date" id="dataAtendInput"></p>
         <p>Horário: <input type="time" id="horarioAtendInput"></p>
         <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma servico"></p>
-        <!-- vou colocar as servicos depois -->
         <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
-                placeholder="Selecione uma forma de pagamento"></p>
-        <!-- colocar as formas de pagamento depois -->
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
         <br>
         <button onclick="RegistrarAtendimento()">Salvar</button>
         <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
