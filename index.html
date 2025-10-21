@@ -10,8 +10,52 @@
             display: none;
         }
 
-        body {
+        *{
             font-family: 'Lato', sans-serif;
+        }
+        body {
+            background-color: #E8F1F2;
+        }
+
+        table{
+            border: 3px solid #05132e;
+            border-radius: 5px;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        thead{
+            background-color: #05132e;
+            color: #E8F1F2;
+        }
+
+        input{
+            border: 1px solid #805e01;
+            border-radius: 3px;
+            background-color: #271d012f;
+            color:#05132e;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+        input:focus{
+            outline: none;
+            border: 2px solid #05132e;
+            box-shadow: 0 0 4px rgba(5, 19, 46, 0.3)
+        }
+        input::-webkit-datetime-edit{
+            color:#805e01;
+            cursor:text;
+        }
+        input:focus::-webkit-datetime-edit{
+            color:#05132e;
+        }
+        input::placeholder{
+            color:#805e01;
+        }
+        input:focus::placeholder{
+            color:#05132e;
+        }
+
+        p{
+            color:#05132e;
         }
 
         .barra-pesquisa {
@@ -26,6 +70,10 @@
             border: 1px solid;
             width: 900px;
             font-size: large;
+            border-style: none;
+        }
+        .barra-pesquisa-input::placeholder{
+            color:#05132e
         }
 
         .icone-lupa {
@@ -51,6 +99,20 @@
             font-size: 15px;
             cursor: pointer;
         }
+
+        .botao-cancelar-salvar{
+            font-size: 25px;
+            height: 40px;
+            width: 250px;
+            background-color: #05132e;
+            color:#E8F1F2 ;
+            cursor: pointer;
+            border-radius: 5px;
+            border-style: none;
+        }
+        .botao-cancelar-salvar:hover{
+            background-color: #805e01;
+        }
     </style>
 </head>
 
@@ -75,7 +137,7 @@
         <br><br>
 
         <table border="1" id="TabelaPacientesCadastradosInteira">
-            <tr>
+            <thead>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Data de nascimento</th>
@@ -83,7 +145,7 @@
                 <th>Profissão</th>
                 <th>Bairro</th>
                 <th colspan="3">Opções de configuração</th>
-            </tr>
+            </thead>
             <tbody id="TabelaPacientesCadastrados"></tbody>
         </table>
 
@@ -103,8 +165,8 @@
                 <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
                 <br>
 
-                <button onclick="FecharSecaoCadastro()">Cancelar</button>
-                <button onclick="CadastrarPaciente()" id="botaoSalvar">Salvar</button>
+                <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
+                <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
     </div>
 
     <div id="HistoricoAtendimentos" class="hidden">
@@ -128,14 +190,14 @@
         <br><br>
 
         <table border="1" id="TabelaHistoricoAtendimentosInteira">
-            <tr>
+            <thead>
                 <th>Data</th>
                 <th>Horário</th>
                 <th>Serviço</th>
                 <th>Valor</th>
                 <th>Forma de pagamento</th>
                 <th colspan="2">Opções de configuração</th>
-            </tr>
+            </thead>
             <tbody id="TabelaHistoricoAtendimentos"></tbody>
         </table>
 
@@ -153,12 +215,11 @@
         <p>Horário: <input type="time" id="horarioAtendInput"></p>
         <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma servico"></p>
         <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
-                placeholder="Selecione uma forma de pagamento"></p>
+        <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput" placeholder="Selecione uma forma de pagamento"></p>
         <br>
         
-        <button onclick="FecharSecaoRegistroAtend()">Cancelar</button>
-        <button onclick="RegistrarAtendimento()">Salvar</button>
+        <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>
+        <button onclick="RegistrarAtendimento()" class="botao-cancelar-salvar">Salvar</button>
     </div>
 
     <script src="script.js" defer></script>
