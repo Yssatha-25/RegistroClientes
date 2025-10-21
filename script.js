@@ -83,6 +83,7 @@ function CadastrarPaciente() {
     }
     else {
         pacientes.push(paciente)
+        alert("Paciente cadastrado com sucesso!")
     }
 
     localStorage.setItem("pacientes", JSON.stringify(pacientes))
