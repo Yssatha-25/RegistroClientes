@@ -76,20 +76,26 @@ function CadastrarPaciente() {
         historico_atendimentos: []
     }
 
-    if (editando) {
-        paciente.historico_atendimentos = pacientes[posicaoPacienteAtual].historico_atendimentos
-        pacientes[posicaoPacienteAtual] = paciente
-        editando = false
-    }
-    else {
-        pacientes.push(paciente)
-        alert("Paciente cadastrado com sucesso!")
-    }
+    if (!CamposPreenchidos()) {
+        const confirmar = confirm("Há informações que não foram preenchidas. Deseja cadastrar o paciente mesmo assim?")
 
-    localStorage.setItem("pacientes", JSON.stringify(pacientes))
+        if (confirmar) {
+            if (editando) {
+                paciente.historico_atendimentos = pacientes[posicaoPacienteAtual].historico_atendimentos
+                pacientes[posicaoPacienteAtual] = paciente
+                editando = false
+            }
+            else {
+                pacientes.push(paciente)
+                alert("Paciente cadastrado com sucesso!")
+            }
 
-    FecharSecaoCadastro()
-    AtualizarTabela()
+            localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+            FecharSecaoCadastro()
+            AtualizarTabela()
+        }
+    }
 }
 
 window.onload = function () {
@@ -108,7 +114,7 @@ function AtualizarTabela() {
                         <th>${pacientes[i].telefone.trim()}</th>
                         <th>${pacientes[i].profissao.trim()}</th>
                         <th>${pacientes[i].bairro.trim()}</th>
-                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Exluir</button></th>
+                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Excluir</button></th>
                         <th><button onclick="EditarPaciente(${i})" class="botao-tabela">Editar</button></th>
                         <th><button onclick="AbrirHistoricoAtend(${i})" class="botao-tabela">Histórico de atendimentos</button></th>
                     `
@@ -150,6 +156,13 @@ const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
 const TabelaHistoricoAtendimentosInteira = document.getElementById("TabelaHistoricoAtendimentosInteira")
 
+function CamposPreenchidos() {
+    if (dataAtend.value != "" && horarioAtend.value != "" && servicoAtend.value != "" && valorAtend.value != "" && formaPagamentoAtend.value != "")
+        return true
+
+    return false
+}
+
 function RegistrarAtendimento() {
     let atendimento = {
         data: dataAtend.value.trim(),
@@ -159,19 +172,25 @@ function RegistrarAtendimento() {
         forma_pagamento: formaPagamentoAtend.value.trim()
     }
 
-    if (editando) {
-        pacientes[posicaoPacienteAtual].historico_atendimentos[posicaoAtendimentoAtual] = atendimento
-        editando = false
-    }
-    else {
-        pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
-    }
+    if (!CamposPreenchidos()) {
+        const confirmar = confirm("Há informações que não foram preenchidas. Deseja registrar o atendimento mesmo assim?")
 
-    localStorage.setItem("pacientes", JSON.stringify(pacientes))
+        if (confirmar) {
+            if (editando) {
+                pacientes[posicaoPacienteAtual].historico_atendimentos[posicaoAtendimentoAtual] = atendimento
+                editando = false
+            }
+            else {
+                pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
+            }
 
-    alert("Atendimento registrado com sucesso!")
-    AtualizarTabelaHistAtend()
-    FecharSecaoRegistroAtend()
+            localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+            alert("Atendimento registrado com sucesso!")
+            AtualizarTabelaHistAtend()
+            FecharSecaoRegistroAtend()
+        }
+    }
 }
 
 function AtualizarTabelaHistAtend() {
@@ -268,7 +287,7 @@ function PesquisarPaciente() {
                         <th>${pacientes[i].telefone.trim()}</th>
                         <th>${pacientes[i].profissao.trim()}</th>
                         <th>${pacientes[i].bairro.trim()}</th>
-                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Exluir</button></th>
+                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Excluir</button></th>
                         <th><button onclick="EditarPaciente(${i})" class="botao-tabela">Editar</button></th>
                         <th><button onclick="AbrirHistoricoAtend(${i})" class="botao-tabela">Histórico de atendimentos</button></th>
                     `
