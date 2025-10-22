@@ -108,9 +108,9 @@ function AtualizarTabela() {
                         <th>${pacientes[i].telefone.trim()}</th>
                         <th>${pacientes[i].profissao.trim()}</th>
                         <th>${pacientes[i].bairro.trim()}</th>
-                        <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
-                        <th><button onclick="EditarPaciente(${i})">Editar</button></th>
-                        <th><button onclick="AbrirHistoricoAtend(${i})">Histórico de atendimentos</button></th>
+                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Exluir</button></th>
+                        <th><button onclick="EditarPaciente(${i})" class="botao-tabela">Editar</button></th>
+                        <th><button onclick="AbrirHistoricoAtend(${i})" class="botao-tabela">Histórico de atendimentos</button></th>
                     `
         TabelaPacientesCadastrados.appendChild(linha)
     }
@@ -193,8 +193,8 @@ function AtualizarTabelaHistAtend() {
                         <th>${atendimento.servico.trim()}</th>
                         <th>${atendimento.valor}</th>
                         <th>${atendimento.forma_pagamento.trim()}</th> 
-                        <th><button onclick="EditarAtendimento(${i})">Editar</button></th>
-                        <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
+                        <th><button onclick="EditarAtendimento(${i})" class="botao-tabela">Editar</button></th>
+                        <th><button onclick="ExcluirAtendimento(${i})" class="botao-excluir">Excluir</button></th>
                         `
 
         TabelaHistoricoAtendimentos.appendChild(linha)
@@ -268,9 +268,9 @@ function PesquisarPaciente() {
                         <th>${pacientes[i].telefone.trim()}</th>
                         <th>${pacientes[i].profissao.trim()}</th>
                         <th>${pacientes[i].bairro.trim()}</th>
-                        <th><button onclick="ExcluirPaciente(${i})">Exluir</button></th>
-                        <th><button onclick="EditarPaciente(${i})">Editar</button></th>
-                        <th><button onclick="AbrirHistoricoAtend(${i})">Histórico de atendimentos</button></th>
+                        <th><button onclick="ExcluirPaciente(${i})" class="botao-excluir">Exluir</button></th>
+                        <th><button onclick="EditarPaciente(${i})" class="botao-tabela">Editar</button></th>
+                        <th><button onclick="AbrirHistoricoAtend(${i})" class="botao-tabela">Histórico de atendimentos</button></th>
                     `
             TabelaPacientesCadastrados.appendChild(linha)
             encontrou = true
@@ -341,8 +341,8 @@ function PesquisarAtendimento() {
                         <th>${atendimento.servico.trim()}</th>
                         <th>${atendimento.valor}</th>
                         <th>${atendimento.forma_pagamento.trim()}</th> 
-                        <th><button onclick="EditarAtendimento(${i})">Editar</button></th>
-                        <th><button onclick="ExcluirAtendimento(${i})">Excluir</button></th>
+                        <th><button onclick="EditarAtendimento(${i})" class="botao-tabela">Editar</button></th>
+                        <th><button onclick="ExcluirAtendimento(${i})" class="botao-excluir">Excluir</button></th>
                         `
 
             TabelaHistoricoAtendimentos.appendChild(linha)

@@ -15,28 +15,40 @@
             justify-content: center;
             border-radius: 3px;
             flex-direction: column;
-            background-color: #aab0b1;
-            padding: 20px;
-            width: 500px;
-            display: flex;
-        }
-
-        .botoes-div{
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            background-color: #805e015b;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 10px;
+            width: 600px;
+            margin: 0 auto;
         }
 
         * {
             font-family: 'Lato', sans-serif;
         }
 
+        .cabecalho {
+            background-color: #7c879c;
+            width: 100%;
+            height: 70px;
+            position: sticky;
+            top: 0;
+            margin: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         body {
             background-color: #E8F1F2;
+            color: #05132e;
+            margin: 0;
         }
 
         table {
-            border: 3px solid #05132e;
+            border: 2px solid #05132e;
             border-radius: 5px;
             border-collapse: collapse;
             border-spacing: 0;
@@ -45,35 +57,50 @@
         thead {
             background-color: #05132e;
             color: #E8F1F2;
+            font-size: 20px;
+            text-align: center;
+
+        }
+
+        tbody {
+            background-color: #805e0159;
+        }
+
+        th {
+            min-width: 80px;
+            min-height: 20px;
         }
 
         input {
-            border: 1px solid #805e01;
+            border-style: none;
             border-radius: 3px;
-            background-color: #271d012f;
+            background-color: #03030348;
             color: #05132e;
+            font-weight: bold;
             transition: border 0.2s ease, box-shadow 0.2s ease;
-            width: 500px;
+            width: 350px;
             height: 30px;
         }
 
         input:focus {
             outline: none;
             border: 2px solid #05132e;
-            box-shadow: 0 0 4px rgba(5, 19, 46, 0.3)
+            box-shadow: 0 0 4px rgba(5, 19, 46, 0.3);
         }
 
         input::-webkit-datetime-edit {
-            color: #805e01;
-            cursor: text;
+            color: #05132e;
+            font-weight: normal;
         }
 
         input:focus::-webkit-datetime-edit {
             color: #05132e;
+            font-weight: bold;
         }
 
         input::placeholder {
-            color: #805e01;
+            color: #05132e;
+            font-weight: normal;
         }
 
         input:focus::placeholder {
@@ -85,6 +112,52 @@
             font-size: 20px;
         }
 
+        h3 {
+            text-align: center;
+        }
+
+        .botao-invisivel {
+            background-color: #05132e00;
+            color: #05132e;
+            border: none;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .botao-invisivel:hover {
+            color: #805e01;
+            text-decoration: underline;
+        }
+
+        .botao-tabela {
+            background-color: #05132e00;
+            color: #05132e;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .botao-tabela:hover {
+            background-color: #b68603;
+        }
+
+        .botao-excluir {
+            width: 100%;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: #805e0100;
+            color: #05132e;
+            border: none;
+            cursor: pointer;
+        }
+
+        .botao-excluir:hover {
+            background-color: #c03030;
+        }
+
         .barra-pesquisa {
             position: relative;
             display: inline-block;
@@ -92,12 +165,16 @@
 
         .barra-pesquisa-input {
             padding-left: 50px;
-            height: 30px;
+            height: 40px;
             border-radius: 8px;
-            border: 1px solid;
+            border: none;
             width: 900px;
             font-size: large;
-            border-style: none;
+            background-color: #05132e54;
+        }
+
+        .barra-pesquisa-input:focus {
+            background-color: #05132e79;
         }
 
         .barra-pesquisa-input::placeholder {
@@ -116,22 +193,40 @@
 
         .botao-pesquisar {
             position: absolute;
-            left: 90%;
+            left: 88%;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 15px;
-            cursor: pointer
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #05132e00;
+            color: #05132e;
+            border: none;
+            font-weight: bold;
+        }
+
+        .botao-pesquisar:hover {
+            color: #664b02;
         }
 
         .botao-limpar {
             font-size: 15px;
             cursor: pointer;
+            background-color: #05132e;
+            color: #E8F1F2;
+            border: none;
+            border-radius: 3px;
+            width: 130px;
+            height: 30px;
+        }
+
+        .botao-limpar:hover {
+            background-color: #805e01;
         }
 
         .botao-cancelar-salvar {
-            font-size: 25px;
-            height: 40px;
-            width: 250px;
+            font-size: 15px;
+            height: 35px;
+            width: 200px;
             background-color: #05132e;
             color: #E8F1F2;
             cursor: pointer;
@@ -142,16 +237,33 @@
         .botao-cancelar-salvar:hover {
             background-color: #805e01;
         }
+
+        .botoes-div {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            justify-content: center;
+        }
+
+        #logo {
+            max-width: 230px;
+            position: absolute;
+            left: 83%;
+
+        }
     </style>
 </head>
 
 <body>
-    <h1>Registro de pacientes</h1>
+    <header class="cabecalho">
+        <h1>Registro de pacientes</h1>
+    </header>
+    <img src="Imagens/logo.png" alt="" id="logo">
 
     <div id="PacientesCadastrados">
         <h2>Pacientes cadastrados</h2>
 
-        <button onclick="AbrirSecaoCadastro()">Cadastrar um novo paciente</button>
+        <button onclick="AbrirSecaoCadastro()" class="botao-invisivel"> + Cadastrar um novo paciente</button>
         <br><br>
 
         <div class="barra-pesquisa" id="barraPesquisaPacientesDiv">
@@ -183,9 +295,9 @@
     </div>
 
     <div id="SecaoCadastroPacientes" class="hidden">
-        <h2>Pacientes cadastrados<h2>
+        <h2>Cadastro de pacientes<h2>
                 <div class="container">
-                    <h3>Cadastro - informações do paciente</h3>
+                    <h3>Informações do paciente</h3>
 
                     <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
                     <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
@@ -194,12 +306,10 @@
                     </p>
                     <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
                     <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
-                    <br>
                     <div class="botoes-div">
                         <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
                         <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar"
                             id="botaoSalvar">Salvar</button>
-
                     </div>
                 </div>
     </div>
@@ -207,7 +317,8 @@
     <div id="HistoricoAtendimentos" class="hidden">
         <h2>Historico de atendimentos</h2>
 
-        <button onclick="FecharHistoricoAtend()">Voltar a tabela dos clientes cadastrados</button>
+        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes
+            cadastrados</button>
         <br><br>
 
         <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
@@ -249,14 +360,15 @@
 
             <p>Data: <input type="date" id="dataAtendInput"></p>
             <p>Horário: <input type="time" id="horarioAtendInput"></p>
-            <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma servico"></p>
+            <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma serviço"></p>
             <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
             <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
                     placeholder="Selecione uma forma de pagamento"></p>
-            <br>
 
-            <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>
-            <button onclick="RegistrarAtendimento()" class="botao-cancelar-salvar">Salvar</button>
+            <div class="botoes-div">
+                <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>
+                <button onclick="RegistrarAtendimento()" class="botao-cancelar-salvar">Salvar</button>
+            </div>
         </div>
     </div>
     <script src="script.js" defer></script>
