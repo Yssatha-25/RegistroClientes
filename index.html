@@ -45,6 +45,7 @@
             background-color: #E8F1F2;
             color: #05132e;
             margin: 0;
+            overflow-x: hidden;
         }
 
         table {
@@ -59,7 +60,7 @@
             color: #E8F1F2;
             font-size: 20px;
             text-align: center;
-
+            border: #E8F1F2;
         }
 
         tbody {
@@ -67,7 +68,7 @@
         }
 
         th {
-            min-width: 80px;
+            min-width: 100px;
             min-height: 20px;
         }
 
@@ -107,13 +108,23 @@
             color: #05132e;
         }
 
-        p {
+        p{
             color: #05132e;
             font-size: 20px;
+            justify-self: center;
+            font-weight: bold;
+            max-width: 1000px;
+        }
+
+        h2{
+            position: relative;
+            left: 2%;    
         }
 
         h3 {
             text-align: center;
+            position: relative;
+            left: 2%;
         }
 
         .botao-invisivel {
@@ -123,11 +134,30 @@
             font-weight: bold;
             font-size: 20px;
             cursor: pointer;
+            position: relative;
+            left: 2%;
         }
 
         .botao-invisivel:hover {
             color: #805e01;
             text-decoration: underline;
+        }
+
+        .botao-cinza {
+            background-color: #05132e52;
+            color: #05132e;
+            border: none;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            left: 2.2%;
+
+        }
+
+        .botao-cinza:hover {
+            background-color: #805e0159;
         }
 
         .botao-tabela {
@@ -208,6 +238,13 @@
             color: #664b02;
         }
 
+        #botaoLimparPesquisa,
+        #botaoLimparPesquisaAtend {
+            position: absolute;
+            left: 101%;
+            top: 20%;
+        }
+
         .botao-limpar {
             font-size: 15px;
             cursor: pointer;
@@ -248,9 +285,20 @@
         #logo {
             max-width: 230px;
             position: absolute;
-            left: 83%;
-
+            left: 79%;
         }
+
+        #barraPesquisaPacientesDiv,
+        #barraPesquisaAtendimentosDiv
+        {
+            left: 10%;
+        }
+
+        #TabelaPacientesCadastradosInteira,
+        #TabelaHistoricoAtendimentosInteira {
+            justify-self: center;
+        }
+
     </style>
 </head>
 
@@ -261,21 +309,22 @@
     <img src="Imagens/logo.png" alt="" id="logo">
 
     <div id="PacientesCadastrados">
-        <h2>Pacientes cadastrados</h2>
+        <h2 id="PacientesCadastradosTitulo">Pacientes cadastrados</h2>
 
         <button onclick="AbrirSecaoCadastro()" class="botao-invisivel"> + Cadastrar um novo paciente</button>
-        <br><br>
+        <br><br><br><br>
 
         <div class="barra-pesquisa" id="barraPesquisaPacientesDiv">
             <input type="text" class="barra-pesquisa-input" id="barraPesquisaPacientes"
                 placeholder="Buscar paciente por nome ou telefone...">
             <img src="Imagens/lupa.png" class="icone-lupa">
             <button class="botao-pesquisar" onclick="PesquisarPaciente()">Pesquisar</button>
-        </div>
 
-        <button id="botaoLimparPesquisa" class="botao-limpar hidden" onclick="LimparPesquisaPacientes()">Limpar
-            pesquisa</button>
-        <br><br>
+            <div id="botaoLimparPesquisa" class="hidden">
+                <button class="botao-limpar" onclick="LimparPesquisaPacientes()">Limpar pesquisa</button>
+            </div>
+        </div>
+        <br><br><br>
 
         <table border="1" id="TabelaPacientesCadastradosInteira">
             <thead>
@@ -295,21 +344,19 @@
     </div>
 
     <div id="SecaoCadastroPacientes" class="hidden">
-        <h2>Cadastro de pacientes<h2>
+        <h2>Pacientes cadastrados</h2>
                 <div class="container">
                     <h3>Informações do paciente</h3>
 
                     <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
                     <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
                     <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
-                    <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone">
-                    </p>
+                    <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
                     <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
                     <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro de moradia"></p>
                     <div class="botoes-div">
                         <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
-                        <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar"
-                            id="botaoSalvar">Salvar</button>
+                        <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
                     </div>
                 </div>
     </div>
@@ -317,23 +364,24 @@
     <div id="HistoricoAtendimentos" class="hidden">
         <h2>Historico de atendimentos</h2>
 
-        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes
-            cadastrados</button>
+        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes cadastrados</button>
         <br><br>
 
-        <button onclick="AbrirSecaoRegistroAtend()">Registrar um novo atendimento</button>
-        <br><br>
+        <button onclick="AbrirSecaoRegistroAtend()" class="botao-cinza">Registrar um novo atendimento</button>
+        <br><br><br><br>
 
-        <div class="barra-pesquisa">
+        <div class="barra-pesquisa" id="barraPesquisaAtendimentosDiv">
             <input type="text" class="barra-pesquisa-input" id="barraPesquisaAtendimentos"
                 placeholder="Buscar atendimento por data, horário ou serviço...">
             <img src="Imagens/lupa.png" class="icone-lupa">
             <button class="botao-pesquisar" onclick="PesquisarAtendimento()">Pesquisar</button>
+
+            <div id="botaoLimparPesquisaAtend" class="hidden">
+                <button class="botao-limpar" onclick="LimparPesquisaAtendimentos()">Limpar pesquisa</button>
+            </div>
         </div>
 
-        <button id="botaoLimparPesquisaAtend" class="botao-limpar hidden" onclick="LimparPesquisaAtendimentos()">Limpar
-            pesquisa</button>
-        <br><br>
+        <br><br><br>
 
         <table border="1" id="TabelaHistoricoAtendimentosInteira">
             <thead>
@@ -347,7 +395,7 @@
             <tbody id="TabelaHistoricoAtendimentos"></tbody>
         </table>
 
-        <p id="avisoAtendimentoNaoEncontrado" class="hidden">Nenhum atendimento foi encontrado. Verifique se a data,
+        <p id="avisoAtendimentoNaoEncontrado" class="hidden"> Nenhum atendimento foi encontrado. Verifique se a data,
             horário ou serviço está correto! Caso esteja procurando por uma data, lembre de utilizar "-" e digitar na
             ordem "ano-mês-dia".</p>
     </div>
