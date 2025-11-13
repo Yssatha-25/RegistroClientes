@@ -65,6 +65,14 @@ const bairroPaciente = document.getElementById("bairroPacienteInput")
 const TabelaPacientesCadastrados = document.getElementById("TabelaPacientesCadastrados")
 const TabelaPacientesCadastradosInteira = document.getElementById("TabelaPacientesCadastradosInteira")
 
+
+function CamposPacientePreenchidos() {
+    if (nomePaciente.value != "" && cpfPaciente.value != "" && dataNascPaciente.value != "" && telefonePaciente.value != "" && profissaoPaciente.value != "" && bairroPaciente.value != "")
+        return true
+
+    return false
+}
+
 function CadastrarPaciente() {
     let paciente = {
         nome: nomePaciente.value.trim(),
@@ -76,7 +84,7 @@ function CadastrarPaciente() {
         historico_atendimentos: []
     }
 
-    if (!CamposPreenchidos()) {
+    if (!CamposPacientePreenchidos()) {
         const confirmar = confirm("Há informações que não foram preenchidas. Deseja cadastrar o paciente mesmo assim?")
 
         if (confirmar) {
@@ -95,6 +103,22 @@ function CadastrarPaciente() {
             FecharSecaoCadastro()
             AtualizarTabela()
         }
+    }
+    else {
+        if (editando) {
+            paciente.historico_atendimentos = pacientes[posicaoPacienteAtual].historico_atendimentos
+            pacientes[posicaoPacienteAtual] = paciente
+            editando = false
+        }
+        else {
+            pacientes.push(paciente)
+            alert("Paciente cadastrado com sucesso!")
+        }
+
+        localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+        FecharSecaoCadastro()
+        AtualizarTabela()
     }
 }
 
@@ -156,10 +180,9 @@ const formaPagamentoAtend = document.getElementById("formaPagamentoAtendInput")
 const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAtendimentos")
 const TabelaHistoricoAtendimentosInteira = document.getElementById("TabelaHistoricoAtendimentosInteira")
 
-function CamposPreenchidos() {
-    if (dataAtend.value != "" && horarioAtend.value != "" && servicoAtend.value != "" && valorAtend.value != "" && formaPagamentoAtend.value != "")
+function CamposAtendPreenchidos() {
+    if (dataAtend.value != "" && horarioAtend.value != "" && servicoAtend.value && valorAtend.value && formaPagamentoAtend.value)
         return true
-
     return false
 }
 
@@ -172,7 +195,7 @@ function RegistrarAtendimento() {
         forma_pagamento: formaPagamentoAtend.value.trim()
     }
 
-    if (!CamposPreenchidos()) {
+    if (!CamposAtendPreenchidos()) {
         const confirmar = confirm("Há informações que não foram preenchidas. Deseja registrar o atendimento mesmo assim?")
 
         if (confirmar) {
@@ -190,6 +213,22 @@ function RegistrarAtendimento() {
             AtualizarTabelaHistAtend()
             FecharSecaoRegistroAtend()
         }
+    }
+    else {
+        if (editando) {
+            pacientes[posicaoPacienteAtual].historico_atendimentos[posicaoAtendimentoAtual] = atendimento
+            editando = false
+        }
+        else {
+            pacientes[posicaoPacienteAtual].historico_atendimentos.push(atendimento)
+        }
+
+        localStorage.setItem("pacientes", JSON.stringify(pacientes))
+
+        alert("Atendimento registrado com sucesso!")
+        AtualizarTabelaHistAtend()
+        FecharSecaoRegistroAtend()
+
     }
 }
 
