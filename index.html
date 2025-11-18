@@ -116,8 +116,15 @@
             <p>Horário: <input type="time" id="horarioAtendInput"></p>
             <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma serviço"></p>
             <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-            <p>Forma de pagamento: <input type="text" id="formaPagamentoAtendInput"
-                    placeholder="Selecione uma forma de pagamento"></p>
+            <p>Forma de pagamento: 
+                <select name="formaPagamentoAtendInput" id="formaPagamentoAtendInput">
+                    <option value=" ">Selecione a forma de pagamento</option>
+                    <option value="pix">Pix</option>
+                    <option value="dinheiro">Dinheiro</option>
+                    <option value="debito">Cartão (débito)</option>
+                    <option value="credito">Cartão (crédito)</option>
+                </select>
+            </p>
 
             <div class="botoes-div">
                 <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>

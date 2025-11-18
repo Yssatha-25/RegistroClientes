@@ -91,6 +91,12 @@ input:focus::-webkit-datetime-edit {
     font-weight: bold;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
 input::placeholder {
     color: #05132e;
     font-weight: normal;
@@ -98,6 +104,23 @@ input::placeholder {
 
 input:focus::placeholder {
     color: #05132e;
+}
+
+select{
+    border-style: none;
+    border-radius: 3px;
+    background-color: #03030348;
+    color: #05132e;
+    font-weight: bold;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+    width: 350px;
+    height: 30px;
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid #05132e;
+    box-shadow: 0 0 4px rgba(5, 19, 46, 0.3);
 }
 
 p{

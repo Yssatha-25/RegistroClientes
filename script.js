@@ -181,7 +181,7 @@ const TabelaHistoricoAtendimentos = document.getElementById("TabelaHistoricoAten
 const TabelaHistoricoAtendimentosInteira = document.getElementById("TabelaHistoricoAtendimentosInteira")
 
 function CamposAtendPreenchidos() {
-    if (dataAtend.value != "" && horarioAtend.value != "" && servicoAtend.value && valorAtend.value && formaPagamentoAtend.value)
+    if (dataAtend.value != "" && horarioAtend.value != "" && servicoAtend.value != "" && valorAtend.value != "" && formaPagamentoAtend.value != "")
         return true
     return false
 }
