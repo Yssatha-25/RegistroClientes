@@ -51,26 +51,27 @@
 
     <div id="SecaoCadastroPacientes" class="hidden">
         <h2>Pacientes cadastrados</h2>
-                <div class="container">
-                    <h3>Informações do paciente</h3>
+        <div class="container">
+            <h3>Informações do paciente</h3>
 
-                    <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
-                    <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
-                    <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
-                    <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
-                    <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
-                    <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro"></p>
-                    <div class="botoes-div">
-                        <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
-                        <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
-                    </div>
-                </div>
+            <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
+            <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
+            <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
+            <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
+            <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
+            <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro"></p>
+            <div class="botoes-div">
+                <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
+                <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
+            </div>
+        </div>
     </div>
 
     <div id="HistoricoAtendimentos" class="hidden">
         <h2>Historico de atendimentos</h2>
 
-        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes cadastrados</button>
+        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes
+            cadastrados</button>
         <br><br>
 
         <button onclick="AbrirSecaoRegistroAtend()" class="botao-cinza">Registrar um novo atendimento</button>
@@ -114,15 +115,29 @@
 
             <p>Data: <input type="date" id="dataAtendInput"></p>
             <p>Horário: <input type="time" id="horarioAtendInput"></p>
-            <p>Serviço: <input type="text" id="servicoAtendInput" placeholder="Selecione uma serviço"></p>
+            <p>Serviço:
+                <select name="servicoAtendInput" id="servicoAtendInput">
+                    <option value=" ">Selecione um serviço</option>
+                    <option value="Podologia preventiva">Podologia preventiva</option>
+                    <option value="Tratamento de onicomicoses">Tratamento de onicomicoses (fungos nas unhas)</option>
+                    <option value="Tratamento de onicofose">Tratamento de onicofose (excesso de pele)</option>
+                    <option value="Trauma ungueal">Trauma ungueal</option>
+                    <option value="Calos e calosidade">Calos e calosidade</option>
+                    <option value="Verruga plantar (olho de peixe)">Verruga plantar (olho de peixe)</option>
+                    <option value="Unha encravada (grau 1)">Unha encravada (grau 1)</option>
+                    <option value="Unha encravada (grau 2)">Unha encravada (grau 2)</option>
+                    <option value="Unha encravada (grau 3)">Unha encravada (grau 3)</option>
+                    <option value="Unha encravada (grau 4)">Unha encravada (grau 4)</option>
+                </select>
+            </p>
             <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-            <p>Forma de pagamento: 
+            <p>Forma de pagamento:
                 <select name="formaPagamentoAtendInput" id="formaPagamentoAtendInput">
                     <option value=" ">Selecione a forma de pagamento</option>
-                    <option value="pix">Pix</option>
-                    <option value="dinheiro">Dinheiro</option>
-                    <option value="debito">Cartão (débito)</option>
-                    <option value="credito">Cartão (crédito)</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão (débito)">Cartão (débito)</option>
+                    <option value="Cartão (crédito)">Cartão (crédito)</option>
                 </select>
             </p>
 
@@ -133,7 +148,6 @@
         </div>
     </div>
     <script src="script.js" defer></script>
-
 </body>
 
 </html>
