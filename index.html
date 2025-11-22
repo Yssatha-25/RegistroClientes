@@ -12,142 +12,179 @@
     <header class="cabecalho">
         <h1>Registro de pacientes</h1>
     </header>
-    <img src="Imagens/logo.png" alt="" id="logo">
 
-    <div id="PacientesCadastrados">
-        <h2 id="PacientesCadastradosTitulo">Pacientes cadastrados</h2>
+    <main>
+        <img src="Imagens/logo.png" alt="logo do consultório Janaina Viana" id="logo">
 
-        <button onclick="AbrirSecaoCadastro()" class="botao-cinza"> + Cadastrar um novo paciente</button>
-        <br><br><br><br>
+        <div id="PacientesCadastrados">
+            <h2 id="PacientesCadastradosTitulo">Pacientes cadastrados</h2>
 
-        <div class="barra-pesquisa" id="barraPesquisaPacientesDiv">
-            <input type="text" class="barra-pesquisa-input" id="barraPesquisaPacientes"
-                placeholder="Buscar paciente por nome ou telefone...">
-            <img src="Imagens/lupa.png" class="icone-lupa">
-            <button class="botao-pesquisar" onclick="PesquisarPaciente()">Pesquisar</button>
+            <button onclick="AbrirSecaoCadastro()" class="botao-cinza"> + Cadastrar um novo paciente</button>
+            <br><br><br><br>
 
-            <div id="botaoLimparPesquisa" class="hidden">
-                <button class="botao-limpar" onclick="LimparPesquisaPacientes()">Limpar pesquisa</button>
+            <div class="barra-pesquisa" id="barraPesquisaPacientesDiv">
+                <input type="text" class="barra-pesquisa-input" id="barraPesquisaPacientes"
+                    placeholder="Buscar paciente por nome ou telefone...">
+                <img src="Imagens/lupa.png" class="icone-lupa">
+                <button class="botao-pesquisar" onclick="PesquisarPaciente()">Pesquisar</button>
+
+                <div id="botaoLimparPesquisa" class="hidden">
+                    <button class="botao-limpar" onclick="LimparPesquisaPacientes()">Limpar pesquisa</button>
+                </div>
             </div>
+            <br><br><br>
+
+            <table border="1" id="TabelaPacientesCadastradosInteira">
+                <thead>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Data de nascimento</th>
+                    <th>Telefone</th>
+                    <th>Profissão</th>
+                    <th>Bairro</th>
+                    <th colspan="3">Opções de configuração</th>
+                </thead>
+                <tbody id="TabelaPacientesCadastrados"></tbody>
+            </table>
+
+            <p id="avisoPacienteNaoEncontrado" class="hidden">Nenhum paciente foi encontrado. Verifique se o nome ou
+                telefone está correto!</p>
         </div>
-        <br><br><br>
 
-        <table border="1" id="TabelaPacientesCadastradosInteira">
-            <thead>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Data de nascimento</th>
-                <th>Telefone</th>
-                <th>Profissão</th>
-                <th>Bairro</th>
-                <th colspan="3">Opções de configuração</th>
-            </thead>
-            <tbody id="TabelaPacientesCadastrados"></tbody>
-        </table>
+        <div id="SecaoCadastroPacientes" class="hidden">
+            <h2>Pacientes cadastrados</h2>
+            <div class="container">
+                <h3>Informações do paciente</h3>
 
-        <p id="avisoPacienteNaoEncontrado" class="hidden">Nenhum paciente foi encontrado. Verifique se o nome ou
-            telefone está correto!</p>
-    </div>
-
-    <div id="SecaoCadastroPacientes" class="hidden">
-        <h2>Pacientes cadastrados</h2>
-        <div class="container">
-            <h3>Informações do paciente</h3>
-
-            <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
-            <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
-            <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
-            <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
-            <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
-            <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro"></p>
-            <div class="botoes-div">
-                <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
-                <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="HistoricoAtendimentos" class="hidden">
-        <h2>Historico de atendimentos</h2>
-
-        <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos clientes
-            cadastrados</button>
-        <br><br>
-
-        <button onclick="AbrirSecaoRegistroAtend()" class="botao-cinza">Registrar um novo atendimento</button>
-        <br><br><br><br>
-
-        <div class="barra-pesquisa" id="barraPesquisaAtendimentosDiv">
-            <input type="text" class="barra-pesquisa-input" id="barraPesquisaAtendimentos"
-                placeholder="Buscar atendimento por data, horário ou serviço...">
-            <img src="Imagens/lupa.png" class="icone-lupa">
-            <button class="botao-pesquisar" onclick="PesquisarAtendimento()">Pesquisar</button>
-
-            <div id="botaoLimparPesquisaAtend" class="hidden">
-                <button class="botao-limpar" onclick="LimparPesquisaAtendimentos()">Limpar pesquisa</button>
+                <p>Nome: <input type="text" id="nomePacienteInput" placeholder="Digite o nome"></p>
+                <p>CPF: <input type="text" id="cpfPacienteInput" placeholder="Digite o CPF"></p>
+                <p>Data de nascimento: <input type="date" id="dataNascPacienteInput"></p>
+                <p>Telefone: <input type="text" id="telefonePacienteInput" placeholder="Digite o n° de telefone"></p>
+                <p>Profissão: <input type="text" id="profissaoPacienteInput" placeholder="Digite a profissão"></p>
+                <p>Bairro: <input type="text" id="bairroPacienteInput" placeholder="Digite o bairro"></p>
+                <div class="botoes-div">
+                    <button onclick="FecharSecaoCadastro()" class="botao-cancelar-salvar">Cancelar</button>
+                    <button onclick="CadastrarPaciente()" class="botao-cancelar-salvar" id="botaoSalvar">Salvar</button>
+                </div>
             </div>
         </div>
 
-        <br><br><br>
+        <div id="HistoricoAtendimentos" class="hidden">
+            <h2>Historico de atendimentos</h2>
 
-        <table border="1" id="TabelaHistoricoAtendimentosInteira">
-            <thead>
-                <th>Data</th>
-                <th>Horário</th>
-                <th>Serviço</th>
-                <th>Valor</th>
-                <th>Forma de pagamento</th>
-                <th colspan="2">Opções de configuração</th>
-            </thead>
-            <tbody id="TabelaHistoricoAtendimentos"></tbody>
-        </table>
+            <button onclick="FecharHistoricoAtend()" class="botao-invisivel">Voltar a tabela dos pacientes
+                cadastrados</button>
+            <br><br>
 
-        <p id="avisoAtendimentoNaoEncontrado" class="hidden"> Nenhum atendimento foi encontrado. Verifique se a data,
-            horário ou serviço está correto! Caso esteja procurando por uma data, lembre de utilizar "-" e digitar na
-            ordem "ano-mês-dia".</p>
-    </div>
+            <button onclick="AbrirSecaoRegistroAtend()" class="botao-cinza">Registrar um novo atendimento</button>
+            <br><br><br><br>
 
-    <div id="SecaoRegistroAtendimentos" class="hidden">
-        <h2>Historico de atendimentos</h2>
+            <div class="barra-pesquisa" id="barraPesquisaAtendimentosDiv">
+                <input type="text" class="barra-pesquisa-input" id="barraPesquisaAtendimentos"
+                    placeholder="Buscar atendimento por data, horário ou serviço...">
+                <img src="Imagens/lupa.png" class="icone-lupa">
+                <button class="botao-pesquisar" onclick="PesquisarAtendimento()">Pesquisar</button>
 
-        <div class="container">
-            <h3>Informações do atendimento</h3>
+                <div id="botaoLimparPesquisaAtend" class="hidden">
+                    <button class="botao-limpar" onclick="LimparPesquisaAtendimentos()">Limpar pesquisa</button>
+                </div>
+            </div>
 
-            <p>Data: <input type="date" id="dataAtendInput"></p>
-            <p>Horário: <input type="time" id="horarioAtendInput"></p>
-            <p>Serviço:
-                <select name="servicoAtendInput" id="servicoAtendInput">
-                    <option value=" ">Selecione um serviço</option>
-                    <option value="Podologia preventiva">Podologia preventiva</option>
-                    <option value="Tratamento de onicomicoses">Tratamento de onicomicoses (fungos nas unhas)</option>
-                    <option value="Tratamento de onicofose">Tratamento de onicofose (excesso de pele)</option>
-                    <option value="Trauma ungueal">Trauma ungueal</option>
-                    <option value="Calos e calosidade">Calos e calosidade</option>
-                    <option value="Verruga plantar (olho de peixe)">Verruga plantar (olho de peixe)</option>
-                    <option value="Unha encravada (grau 1)">Unha encravada (grau 1)</option>
-                    <option value="Unha encravada (grau 2)">Unha encravada (grau 2)</option>
-                    <option value="Unha encravada (grau 3)">Unha encravada (grau 3)</option>
-                    <option value="Unha encravada (grau 4)">Unha encravada (grau 4)</option>
-                </select>
-            </p>
-            <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
-            <p>Forma de pagamento:
-                <select name="formaPagamentoAtendInput" id="formaPagamentoAtendInput">
-                    <option value=" ">Selecione a forma de pagamento</option>
-                    <option value="Pix">Pix</option>
-                    <option value="Dinheiro">Dinheiro</option>
-                    <option value="Cartão (débito)">Cartão (débito)</option>
-                    <option value="Cartão (crédito)">Cartão (crédito)</option>
-                </select>
-            </p>
+            <br><br><br>
 
-            <div class="botoes-div">
-                <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>
-                <button onclick="RegistrarAtendimento()" class="botao-cancelar-salvar">Salvar</button>
+            <table border="1" id="TabelaHistoricoAtendimentosInteira">
+                <thead>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Serviço</th>
+                    <th>Valor</th>
+                    <th>Forma de pagamento</th>
+                    <th colspan="2">Opções de configuração</th>
+                </thead>
+                <tbody id="TabelaHistoricoAtendimentos"></tbody>
+            </table>
+
+            <p id="avisoAtendimentoNaoEncontrado" class="hidden"> Nenhum atendimento foi encontrado. Verifique se a
+                data,
+                horário ou serviço está correto! Caso esteja procurando por uma data, lembre de utilizar "-" e digitar
+                na
+                ordem "ano-mês-dia".</p>
+        </div>
+
+        <div id="SecaoRegistroAtendimentos" class="hidden">
+            <h2>Historico de atendimentos</h2>
+
+            <div class="container">
+                <h3>Informações do atendimento</h3>
+
+                <p>Data: <input type="date" id="dataAtendInput"></p>
+                <p>Horário: <input type="time" id="horarioAtendInput"></p>
+                <p>Serviço:
+                    <select name="servicoAtendInput" id="servicoAtendInput">
+                        <option value=" ">Selecione um serviço</option>
+                        <option value="Podologia preventiva">Podologia preventiva</option>
+                        <option value="Tratamento de onicomicoses">Tratamento de onicomicoses (fungos nas unhas)
+                        </option>
+                        <option value="Tratamento de onicofose">Tratamento de onicofose (excesso de pele)</option>
+                        <option value="Trauma ungueal">Trauma ungueal</option>
+                        <option value="Calos e calosidade">Calos e calosidade</option>
+                        <option value="Verruga plantar (olho de peixe)">Verruga plantar (olho de peixe)</option>
+                        <option value="Unha encravada (grau 1)">Unha encravada (grau 1)</option>
+                        <option value="Unha encravada (grau 2)">Unha encravada (grau 2)</option>
+                        <option value="Unha encravada (grau 3)">Unha encravada (grau 3)</option>
+                        <option value="Unha encravada (grau 4)">Unha encravada (grau 4)</option>
+                    </select>
+                </p>
+                <p>Valor: <input type="number" id="valorAtendInput" placeholder="Digite o valor do atendimento"></p>
+                <p>Forma de pagamento:
+                    <select name="formaPagamentoAtendInput" id="formaPagamentoAtendInput">
+                        <option value=" ">Selecione a forma de pagamento</option>
+                        <option value="Pix">Pix</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                        <option value="Cartão (débito)">Cartão (débito)</option>
+                        <option value="Cartão (crédito)">Cartão (crédito)</option>
+                    </select>
+                </p>
+
+                <div class="botoes-div">
+                    <button onclick="FecharSecaoRegistroAtend()" class="botao-cancelar-salvar">Cancelar</button>
+                    <button onclick="RegistrarAtendimento()" class="botao-cancelar-salvar">Salvar</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="script.js" defer></script>
+        <script src="script.js" defer></script>
+    </main>
+
+    <footer>
+        <img src="Imagens/logo.png" alt="logo do consultório Janaina Viana" id="logo">
+
+        <div class="items_container">
+            <div class="item1">
+                <h4>Sistema</h4>
+                <p>Projeto independente desenvolvido por <strong>Thayssa Viana</strong>: sistema estruturado e
+                    personalizado
+                    especialmente para o uso do <strong>consultório de podologia Janaina Viana</strong>, para fins de
+                    organização do registro de seus clientes.</p>
+            </div>
+
+            <div class="item2">
+                <h4>Desenvolvedora e contatos</h4>
+                <p>Olá! Sou uma estudante de programação buscando o início da minha atuação como dev junior, portanto estou
+                    aberta a <strong>pedidos de parceria</strong> para o desenvolvimento de <strong>plataformas personalizadas</strong> como essa ou
+                    convites para <strong>contribuição em outros projetos</strong>. Em caso de interesse, entre em contato pelo meu email
+                    profissional:
+                    <a href="mailto:thayssaaparecidaviana@gmail.com">thayssaaparecidaviana@gmail.com</a>.
+                </p>
+
+                <p>Acesse o meu <a href="https://github.com/Yssatha-25">Github</a> para acompanhar outros projetos.</p>
+            </div>
+
+            <div class="item3">
+                <p>Página desenvolvida por Thayssa Viana &copy;. Todos os direitos reservados - 2025.</p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 
 </html>
